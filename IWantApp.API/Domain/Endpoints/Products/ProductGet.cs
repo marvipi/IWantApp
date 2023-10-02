@@ -39,7 +39,6 @@ public class ProductGet
                 product.Description,
                 product.Category.Name,
                 product.HasStock,
-                product.Active,
                 product.Price));
         }
         return result;

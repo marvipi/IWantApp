@@ -1,4 +1,4 @@
-namespace IWantApp.API.Domain.Endpoints.Users;
+namespace IWantApp.API.Domain.Services;
 
 /// <summary>
 /// Representa um microserviço responsável pela criação dos usuários.

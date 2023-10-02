@@ -1,4 +1,6 @@
-﻿namespace IWantApp.API.Domain.Endpoints.Products;
+﻿using IWantApp.API.Domain.Services;
+
+namespace IWantApp.API.Domain.Endpoints.Products;
 
 /// <summary>
 /// Representa uma requisição HTTP que atualiza um produto já registrado no sistema.

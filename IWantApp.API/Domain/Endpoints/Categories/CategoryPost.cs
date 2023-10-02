@@ -1,3 +1,5 @@
+using IWantApp.API.Domain.Services;
+
 namespace IWantApp.API.Domain.Endpoints.Categories;
 
 /// <summary>

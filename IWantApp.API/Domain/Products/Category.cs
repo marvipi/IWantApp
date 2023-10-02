@@ -1,10 +1,15 @@
 namespace IWantApp.API.Domain.Products;
 
 /// <summary>
-/// Representa uma categoria ‡ qual um produto pode pertencer.
+/// Representa uma categoria √† qual um produto pode pertencer.
 /// </summary>
 public class Category : Entity
 {
+    /// <summary>
+    /// O nome desta categoria.
+    /// </summary>
+    public string Name { get; private set; }
+
     /// <summary>
     /// Indica se esta categoria pode ser usada para marcar produtos.
     /// </summary>
@@ -14,10 +19,13 @@ public class Category : Entity
     /// Produz uma nova categoria.
     /// </summary>
     /// <param name="name"> O nome da nova categoria. </param>
-    /// <param name="createdBy"> O identificador do usu·rio que a criou. </param>
-    public Category(string name, string createdBy) : base(name, createdBy)
+    /// <param name="createdBy"> O identificador do usu√°rio que a criou. </param>
+    public Category(string name, string createdBy) : base(createdBy)
     {
+        Name = name;
         Active = true;
+
+        Validate();
     }
 
     /// <summary>
@@ -25,10 +33,21 @@ public class Category : Entity
     /// </summary>
     /// <param name="name"> O novo nome para esta categoria. </param>
     /// <param name="active"> Indica se esta categoria pode ser usada para marcar produtos. </param>
-    /// <param name="modifiedBy"> O identificador do usu·rio que esta modificando esta categoria. </param>
+    /// <param name="modifiedBy"> O identificador do usu√°rio que esta modificando esta categoria. </param>
     public void Update(string name, bool active, string modifiedBy)
     {
+        Name = name;
         Active = active;
-        base.Update(name, modifiedBy);
+        base.Update(modifiedBy);
+        Validate();
+    }
+
+    private void Validate()
+    {
+        var contract = new Contract<Category>()
+            .IsNotNullOrEmpty(Name, "Name")
+            .IsGreaterOrEqualsThan(Name, 3, "Name");
+
+        AddNotifications(contract);
     }
 }

@@ -1,4 +1,4 @@
-namespace IWantApp.API.Domain.Endpoints;
+namespace IWantApp.API.Domain.Services;
 
 public static class ProblemDetailsExtension
 {

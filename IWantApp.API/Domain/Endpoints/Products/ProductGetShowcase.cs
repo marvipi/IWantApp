@@ -51,7 +51,7 @@ public class ProductGetShowcase
         var queryPaged = queryOrdered.Skip((page - 1) * rows).Take(rows);
 
         var products = queryPaged.ToList();
-        var response = products.Select(p => new ProductResponse(p.Name, p.Description, p.Category.Name, p.HasStock, p.Active, p.Price));
+        var response = products.Select(p => new ProductResponse(p.Name, p.Description, p.Category.Name, p.HasStock, p.Price));
         return Results.Ok(response);
     }
 

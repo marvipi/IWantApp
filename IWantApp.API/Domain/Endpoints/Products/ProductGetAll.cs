@@ -28,7 +28,7 @@ public class ProductGetAll
             .Include(p => p.Category)
             .OrderBy(p => p.Name)
             .ToList();
-        var response = products.Select(p => new ProductResponse(p.Name, p.Description, p.Category.Name, p.HasStock, p.Active, p.Price));
+        var response = products.Select(p => new ProductResponse(p.Name, p.Description, p.Category.Name, p.HasStock, p.Price));
         return Results.Ok(response);
     }
 }

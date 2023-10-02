@@ -1,4 +1,4 @@
-using IWantApp.API.Domain.Endpoints.Users;
+using IWantApp.API.Domain.Services;
 
 namespace IWantApp.API.Domain.Endpoints.Clients;
 

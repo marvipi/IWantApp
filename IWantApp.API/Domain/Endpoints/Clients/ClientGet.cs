@@ -1,5 +1,3 @@
-using IWantApp.API.Domain.Endpoints.Users;
-
 namespace IWantApp.API.Domain.Endpoints.Clients;
 
 /// <summary>

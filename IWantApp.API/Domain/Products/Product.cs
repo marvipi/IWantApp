@@ -6,6 +6,11 @@ namespace IWantApp.API.Domain.Products;
 public class Product : Entity
 {
     /// <summary>
+    /// O nome deste produto.
+    /// </summary>
+    public string Name { get; private set; }
+
+    /// <summary>
     /// A categoria à qual o produto pertence.
     /// </summary>
     public Category Category { get; private set; }
@@ -14,11 +19,6 @@ public class Product : Entity
     /// Indica se o produto está em estoque.
     /// </summary>
     public bool HasStock { get; private set; }
-
-    /// <summary>
-    /// Indica se o produto pode ser listado no website.
-    /// </summary>
-    public bool Active { get; private set; }
 
     /// <summary>
     /// Uma breve descrição do produto.
@@ -30,8 +30,13 @@ public class Product : Entity
     /// </summary>
     public decimal Price { get; private set; }
 
+    /// <summary>
+    /// Todas os pedidos aos quais este produto pertence.
+    /// </summary>
+    public ICollection<Order> Orders { get; private set; }
+
     // Usado para que o entity framework possa mapear esta entidade no banco de dados.
-    private Product(string name, string createdBy) : base(name, createdBy) { }
+    private Product(string createdBy) : base(createdBy) { }
 
     /// <summary>
     /// Instancia uma novo produto.
@@ -42,11 +47,11 @@ public class Product : Entity
     /// <param name="createdBy"> O identificado do usuário que registrou o novo produto. </param>
     /// <param name="description"> Uma breve descrição do novo produto. </param>
     /// <param name="price"> O preço do novo produto. </param>
-    public Product(string name, Category category, bool hasStock, string createdBy, string? description, decimal price) : base(name, createdBy)
+    public Product(string name, Category category, bool hasStock, string createdBy, string? description, decimal price) : base(createdBy)
     {
+        Name = name;
         Category = category;
         HasStock = hasStock;
-        Active = true;
         Description = description;
         Price = price;
 
@@ -64,7 +69,8 @@ public class Product : Entity
     /// <param name="price"> O novo preço deste produto. </param>
     public void Update(string name, Category category, bool hasStock, string modifiedBy, string? description, decimal price)
     {
-        base.Update(name, modifiedBy);
+        base.Update(modifiedBy);
+        Name = name;
         Category = category;
         HasStock = hasStock;
         Description = description;
@@ -76,6 +82,8 @@ public class Product : Entity
     private void Validate()
     {
         var contract = new Contract<Product>()
+            .IsNotNullOrEmpty(Name, "Name")
+            .IsGreaterOrEqualsThan(Name, 3, "Name")
             .IsNotNull(Category, "Category", "Category not found")
             .IsNotNull(HasStock, "HasStock")
             .IsNotNull(Price, "Price")

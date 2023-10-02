@@ -11,11 +11,6 @@ public abstract class Entity : Notifiable<Notification>
     public Guid Id { get; private set; }
 
     /// <summary>
-    /// O nome desta entidade.
-    /// </summary>
-    public string Name { get; private set; }
-
-    /// <summary>
     /// O identificador do usuário que criou esta entidade.
     /// </summary>
     public string CreatedBy { get; private set; }
@@ -38,12 +33,10 @@ public abstract class Entity : Notifiable<Notification>
     /// <summary>
     /// Produz uma nova entidade.
     /// </summary>
-    /// <param name="name"> O nome da nova entidade. </param>
     /// <param name="createdBy"> O identificador do usuário que a criou. </param>
-    public Entity(string name, string createdBy)
+    public Entity(string createdBy)
     {
         Id = Guid.NewGuid();
-        Name = name;
         CreatedBy = createdBy;
         CreatedOn = DateTime.Now;
 
@@ -53,23 +46,18 @@ public abstract class Entity : Notifiable<Notification>
     /// <summary>
     /// Atualiza o nome desta entidade.
     /// </summary>
-    /// <param name="name"> O novo nome que esta entidade terá. </param>
     /// <param name="modifiedBy"> O identificador do usuário que está atualizando esta entidade. </param>
-    protected void Update(string name, string modifiedBy)
+    protected void Update(string modifiedBy)
     {
-        Name = name;
         ModifiedBy = modifiedBy;
         ModifiedOn = DateTime.Now;
-
-        Validate();
     }
 
     private void Validate()
     {
         var contract = new Contract<Entity>()
-                    .IsNotNullOrEmpty(Name, "Name")
-                    .IsGreaterOrEqualsThan(Name, 3, "Name")
-                    .IsNotNullOrEmpty(CreatedBy, "CreatedBy");
+            .IsNotNullOrEmpty(CreatedBy, "CreatedBy")
+            .IsNotNull(CreatedOn, "CreatedOn");
 
         AddNotifications(contract);
     }
