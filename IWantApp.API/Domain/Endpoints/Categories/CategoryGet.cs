@@ -1,22 +1,22 @@
 namespace IWantApp.API.Domain.Endpoints.Categories;
 
 /// <summary>
-/// Representa uma requisição HTTP que busca por uma categoria específica.
+/// Representa uma requisiÃ§Ã£o HTTP que busca por uma categoria especÃ­fica.
 /// </summary>
 public static class CategoryGet
 {
     /// <summary>
-    /// O endpoint onde a categoria desejada está localizada.
+    /// O endpoint onde a categoria desejada estÃ¡ localizada.
     /// </summary>
     public static string Template => "/categories/{id:guid}";
 
     /// <summary>
-    /// Os métodos HTTP usados para invocar esta requisição.
+    /// Os mÃ©todos HTTP usados para invocar esta requisiÃ§Ã£o.
     /// </summary>
     public static string[] Methods => new string[] { HttpMethod.Get.ToString() };
 
     /// <summary>
-    /// Uma referência a um método que busca categorias.
+    /// Uma referÃªncia a um mÃ©todo que busca categorias.
     /// </summary>
     public static Delegate Handler => Action;
 

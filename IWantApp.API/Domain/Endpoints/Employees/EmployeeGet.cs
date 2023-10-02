@@ -1,22 +1,22 @@
 namespace IWantApp.API.Domain.Endpoints.Employees;
 
 /// <summary>
-/// Representa uma requisição HTTP que busca um empregado específico.
+/// Representa uma requisiÃ§Ã£o HTTP que busca um empregado especÃ­fico.
 /// </summary>
 public static class EmployeeGet
 {
     /// <summary>
-    /// O endpoint onde o empregado está localizado.
+    /// O endpoint onde o empregado estÃ¡ localizado.
     /// </summary>
     public static string Template => "/employees/{id}";
 
     /// <summary>
-    /// Os métodos HTTP usados para invocar esta requisição.
+    /// Os mÃ©todos HTTP usados para invocar esta requisiÃ§Ã£o.
     /// </summary>
     public static string[] Methods => new string[] { HttpMethod.Get.ToString() };
 
     /// <summary>
-    /// Uma referência a um método que busca empregados.
+    /// Uma referÃªncia a um mÃ©todo que busca empregados.
     /// </summary>
     public static Delegate Handler => Action;
 
