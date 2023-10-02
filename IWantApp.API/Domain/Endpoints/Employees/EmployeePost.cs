@@ -1,49 +1,46 @@
+using IWantApp.API.Domain.Endpoints.Users;
+
 namespace IWantApp.API.Domain.Endpoints.Employees;
 
 /// <summary>
-/// Representa uma requisição HTTP usada para registrar um novo empregado.
+/// Representa uma requisiÃ§Ã£o HTTP usada para registrar um novo empregado.
 /// </summary>
 public static class EmployeePost
 {
     /// <summary>
-    /// O endpoint onde empregados estão localizados.
+    /// O endpoint onde empregados estÃ£o localizados.
     /// </summary>
     public static string Template => "/employees";
 
     /// <summary>
-    /// Os métodos HTTP usados para invocar esta requisição.
+    /// Os mÃ©todos HTTP usados para invocar esta requisiÃ§Ã£o.
     /// </summary>
     public static string[] Methods => new string[] { HttpMethod.Post.ToString() };
 
     /// <summary>
-    /// Uma referência a um método que registra empregados no sistema.
+    /// Uma referÃªncia a um mÃ©todo que registra empregados no sistema.
     /// </summary>
     public static Delegate Handler => Action;
 
     [Authorize(Policy = "EmployeePolicy")]
-    private static async Task<IResult> Action(EmployeeRequest request, HttpContext httpContext, UserManager<IdentityUser> userManager)
+    private static async Task<IResult> Action(EmployeeRequest request, HttpContext httpContext, UserCreator userCreator)
     {
         var creator = httpContext
             .User
             .Claims
             .First(claim => claim.Type == ClaimTypes.NameIdentifier)
             .Value;
-        var newUser = new IdentityUser { UserName = request.Email, Email = request.Email };
 
-        var result = await userManager.CreateAsync(newUser, request.Password);
-        if (!result.Succeeded) return Results.ValidationProblem(result.Errors.ConvertToProblemDetails());
-
-        var claims = new List<Claim>() {
+        var userClaims = new List<Claim>() {
             new(ClaimTypes.Name, request.Name),
             new("EmployeeCode", request.EmployeeCode),
             new("CreatedBy", creator)
         };
 
-        var claimsResult = await userManager.AddClaimsAsync(newUser, claims);
-        if (!claimsResult.Succeeded) return Results.ValidationProblem(claimsResult.Errors.ConvertToProblemDetails());
+        (var result, var newUserId) = await userCreator.Create(request.Email, request.Password, userClaims);
 
-        return Results.Created(Template + $"/{newUser.Id}", newUser.Id);
+        if (!result.Succeeded) return Results.ValidationProblem(result.Errors.ConvertToProblemDetails());
 
-
+        return Results.Created(Template + $"/{newUserId}", newUserId);
     }
 }
