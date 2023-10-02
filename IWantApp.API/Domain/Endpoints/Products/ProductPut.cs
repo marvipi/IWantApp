@@ -31,7 +31,7 @@ public static class ProductPut
             .First(c => c.Type == ClaimTypes.NameIdentifier)
             .Value;
         var category = await context.Categories.FindAsync(request.CategoryId);
-        product.Update(request.Name, category, request.HasStock, user, request.Description);
+        product.Update(request.Name, category, request.HasStock, user, request.Description, request.Price);
 
         if (!product.IsValid) return Results.ValidationProblem(product.Notifications.ConvertToProblemDetails());
 

@@ -24,10 +24,11 @@ public class ProductGetAll
     private static IResult Action(ApplicationDbContext applicationDbContext)
     {
         var products = applicationDbContext.Products
+            .AsNoTracking()
             .Include(p => p.Category)
             .OrderBy(p => p.Name)
             .ToList();
-        var response = products.Select(p => new ProductResponse(p.Name, p.Description, p.Category.Name, p.HasStock, p.Active));
+        var response = products.Select(p => new ProductResponse(p.Name, p.Description, p.Category.Name, p.HasStock, p.Active, p.Price));
         return Results.Ok(response);
     }
 }

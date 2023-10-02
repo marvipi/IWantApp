@@ -1,6 +1,8 @@
+using IWantApp.API.Domain.Endpoints.Clients;
 using IWantApp.API.Domain.Endpoints.Employees;
 using IWantApp.API.Domain.Endpoints.Products;
 using IWantApp.API.Domain.Endpoints.Security;
+using IWantApp.API.Domain.Endpoints.Users;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.Data.SqlClient;
@@ -53,6 +55,7 @@ builder.Services.AddAuthentication(options =>
 });
 
 builder.Services.AddScoped<QueryAllUsersWithClaimName>();
+builder.Services.AddScoped<UserCreator>();
 
 var app = builder.Build();
 app.UseAuthentication();
@@ -73,6 +76,9 @@ app.MapMethods(EmployeeDelete.Template, EmployeeDelete.Methods, EmployeeDelete.H
 app.MapMethods(EmployeePost.Template, EmployeePost.Methods, EmployeePost.Handler);
 app.MapMethods(EmployeePut.Template, EmployeePut.Methods, EmployeePut.Handler);
 
+app.MapMethods(ClientGet.Template, ClientGet.Methods, ClientGet.Handler);
+app.MapMethods(ClientPost.Template, ClientPost.Methods, ClientPost.Handler);
+
 app.MapMethods(CategoryGet.Template, CategoryGet.Methods, CategoryGet.Handler);
 app.MapMethods(CategoryGetAll.Template, CategoryGetAll.Methods, CategoryGetAll.Handler);
 app.MapMethods(CategoryDelete.Template, CategoryDelete.Methods, CategoryDelete.Handler);
@@ -81,6 +87,7 @@ app.MapMethods(CategoryPut.Template, CategoryPut.Methods, CategoryPut.Handler);
 
 app.MapMethods(ProductGet.Template, ProductGet.Methods, ProductGet.Handler);
 app.MapMethods(ProductGetAll.Template, ProductGetAll.Methods, ProductGetAll.Handler);
+app.MapMethods(ProductGetShowcase.Template, ProductGetShowcase.Methods, ProductGetShowcase.Handler);
 app.MapMethods(ProductDelete.Template, ProductDelete.Methods, ProductDelete.Handler);
 app.MapMethods(ProductPost.Template, ProductPost.Methods, ProductPost.Handler);
 app.MapMethods(ProductPut.Template, ProductPut.Methods, ProductPut.Handler);
@@ -108,8 +115,3 @@ app.Map("/error", (HttpContext http) =>
 });
 
 app.Run();
-
-internal record WeatherForecast(DateTime Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}

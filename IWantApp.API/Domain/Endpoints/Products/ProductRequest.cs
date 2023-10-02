@@ -7,4 +7,5 @@ namespace IWantApp.API.Domain.Endpoints.Products;
 /// <param name="CategoryId"> O identificador da categoria à qual o produto pertence. </param>
 /// <param name="HasStock"> Indica se o produto está em estoque. </param>
 /// <param name="Description"> Uma breve descrição do produto. </param>
-public record ProductRequest(string Name, Guid CategoryId, bool HasStock, string? Description);
+/// <param name="Price"> O preço do produto. </param>
+public record ProductRequest(string Name, Guid CategoryId, bool HasStock, string? Description, decimal Price);

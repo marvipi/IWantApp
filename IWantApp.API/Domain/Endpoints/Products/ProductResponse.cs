@@ -1,11 +1,12 @@
 namespace IWantApp.API.Domain.Endpoints.Products;
 
 /// <summary>
-/// Representa o corpo de uma resposta HTTP que contÈm dados sobre um produto.
+/// Representa o corpo de uma resposta HTTP que cont√©m dados sobre um produto.
 /// </summary>
 /// <param name="Name"> O nome do produto. </param>
-/// <param name="Description"> Uma breve descriÁ„o do produto. </param>
-/// <param name="CategoryName"> O nome da categoria ‡ qual o produto pertence. </param>
-/// <param name="HasStock"> Indica se o produto est· em estoque. </param>
-/// <param name="Active"> Indica se o produto est· ativo no website. </param>
-public record ProductResponse(string Name, string? Description, string CategoryName, bool HasStock, bool Active);
+/// <param name="Description"> Uma breve descri√ß√£o do produto. </param>
+/// <param name="CategoryName"> O nome da categoria √† qual o produto pertence. </param>
+/// <param name="HasStock"> Indica se o produto est√° em estoque. </param>
+/// <param name="Active"> Indica se o produto est√° ativo no website. </param>
+/// <param name="Price"> O pre√ßo do produto. </param>
+public record ProductResponse(string Name, string? Description, string CategoryName, bool HasStock, bool Active, decimal Price);

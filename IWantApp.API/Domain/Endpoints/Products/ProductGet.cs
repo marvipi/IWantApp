@@ -25,6 +25,7 @@ public class ProductGet
     {
         IResult result;
         var product = await applicationDbContext.Products
+            .AsNoTracking()
             .Include(p => p.Category)
             .FirstOrDefaultAsync(p => p.Id == id);
 
@@ -38,7 +39,8 @@ public class ProductGet
                 product.Description,
                 product.Category.Name,
                 product.HasStock,
-                product.Active));
+                product.Active,
+                product.Price));
         }
         return result;
     }

@@ -29,7 +29,7 @@ public static class ProductPost
             .Value;
 
         var category = await context.Categories.FindAsync(request.CategoryId);
-        var product = new Product(request.Name, category, request.HasStock, user, request.Description);
+        var product = new Product(request.Name, category, request.HasStock, user, request.Description, request.Price);
 
         if (!product.IsValid) return Results.ValidationProblem(product.Notifications.ConvertToProblemDetails());
 

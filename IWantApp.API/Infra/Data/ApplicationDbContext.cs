@@ -16,6 +16,10 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser>
         modelBuilder.Ignore<Notification>();
 
         modelBuilder.Entity<Product>()
+            .Property(product => product.Price)
+            .HasColumnType("decimal(10,2)");
+
+        modelBuilder.Entity<Product>()
             .Property(product => product.Description)
             .HasMaxLength(250);
     }

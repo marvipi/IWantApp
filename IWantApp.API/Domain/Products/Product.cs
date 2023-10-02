@@ -25,6 +25,11 @@ public class Product : Entity
     /// </summary>
     public string? Description { get; private set; }
 
+    /// <summary>
+    /// O preço do produto no intervalo de R$1,00 a R$9.999.999.999,99.
+    /// </summary>
+    public decimal Price { get; private set; }
+
     // Usado para que o entity framework possa mapear esta entidade no banco de dados.
     private Product(string name, string createdBy) : base(name, createdBy) { }
 
@@ -36,12 +41,14 @@ public class Product : Entity
     /// <param name="hasStock"> Indica se o novo produto está em estoque. </param>
     /// <param name="createdBy"> O identificado do usuário que registrou o novo produto. </param>
     /// <param name="description"> Uma breve descrição do novo produto. </param>
-    public Product(string name, Category category, bool hasStock, string createdBy, string? description) : base(name, createdBy)
+    /// <param name="price"> O preço do novo produto. </param>
+    public Product(string name, Category category, bool hasStock, string createdBy, string? description, decimal price) : base(name, createdBy)
     {
         Category = category;
         HasStock = hasStock;
         Active = true;
         Description = description;
+        Price = price;
 
         Validate();
     }
@@ -54,12 +61,14 @@ public class Product : Entity
     /// <param name="hasStock"> Indica se este produto esta em estoque. </param>
     /// <param name="modifiedBy"> O identificador do usuário que esta modificando este produto. </param>
     /// <param name="description"> Uma nova descrição para este produto. </param>
-    public void Update(string name, Category category, bool hasStock, string modifiedBy, string? description)
+    /// <param name="price"> O novo preço deste produto. </param>
+    public void Update(string name, Category category, bool hasStock, string modifiedBy, string? description, decimal price)
     {
         base.Update(name, modifiedBy);
         Category = category;
         HasStock = hasStock;
         Description = description;
+        Price = price;
 
         Validate();
     }
@@ -68,7 +77,10 @@ public class Product : Entity
     {
         var contract = new Contract<Product>()
             .IsNotNull(Category, "Category", "Category not found")
-            .IsNotNull(HasStock, "HasStock");
+            .IsNotNull(HasStock, "HasStock")
+            .IsNotNull(Price, "Price")
+            .IsGreaterOrEqualsThan(Price, 1, "Price")
+            .IsLowerThan(Price, 10000000000, "Price");
 
         AddNotifications(contract);
     }
