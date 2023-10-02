@@ -2,6 +2,8 @@ using IWantApp.API.Domain.Endpoints.Employees;
 using IWantApp.API.Domain.Endpoints.Products;
 using IWantApp.API.Domain.Endpoints.Security;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.Data.SqlClient;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -85,17 +87,25 @@ app.MapMethods(ProductPut.Template, ProductPut.Methods, ProductPut.Handler);
 
 app.MapMethods(TokenPost.Template, TokenPost.Methods, TokenPost.Handler);
 
-/*app.UseExceptionHandler("/error");*/
-/*app.Map("/error", (HttpContext http) =>
+app.UseExceptionHandler("/error");
+app.Map("/error", (HttpContext http) =>
 {
     var error = http.Features.Get<IExceptionHandlerFeature>()?.Error;
-    if (error is not null && error is SqlException)
+    if (error is not null)
     {
-        return Results.Problem(title: "Database is offline.", statusCode: 500);
+        switch (error)
+        {
+            case SqlException:
+                return Results.Problem(title: "Database is offline", statusCode: 500);
+            case BadHttpRequestException:
+                return Results.Problem(title: "Type convertion error",
+                    detail: "One of the values in the body of the request could not be converted to the expected type.",
+                    statusCode: 500);
+        }
     }
 
     return Results.Problem(title: "An error ocurred.", statusCode: 500);
-});*/
+});
 
 app.Run();
 

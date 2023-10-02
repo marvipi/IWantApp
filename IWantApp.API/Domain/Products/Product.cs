@@ -67,7 +67,7 @@ public class Product : Entity
     private void Validate()
     {
         var contract = new Contract<Product>()
-            .IsNotNull(Category, "Category")
+            .IsNotNull(Category, "Category", "Category not found")
             .IsNotNull(HasStock, "HasStock");
 
         AddNotifications(contract);
