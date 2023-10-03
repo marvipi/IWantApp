@@ -1,9 +1,9 @@
-using IWantApp.API.Domain.Services;
+using IWantApp.API.Domain.Extensions;
 
 namespace IWantApp.API.Domain.Endpoints.Categories;
 
 /// <summary>
-/// Representa uma requisição HTTP que cria uma nova categoria.
+/// Representa uma requisiÃ§Ã£o HTTP que cria uma nova categoria.
 /// </summary>
 public static class CategoryPost
 {
@@ -13,12 +13,12 @@ public static class CategoryPost
     public static string Template => "/categories";
 
     /// <summary>
-    /// Os métodos HTTP usados para invocar esta requisição.
+    /// Os mÃ©todos HTTP usados para invocar esta requisiÃ§Ã£o.
     /// </summary>
     public static string[] Methods => new string[] { HttpMethod.Post.ToString() };
 
     /// <summary>
-    /// Uma referência a um método que cria novas categorias.
+    /// Uma referÃªncia a um mÃ©todo que cria novas categorias.
     /// </summary>
     public static Delegate Handler => Action;
 

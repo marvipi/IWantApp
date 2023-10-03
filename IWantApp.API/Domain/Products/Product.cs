@@ -1,3 +1,5 @@
+using Flunt.Validations;
+
 namespace IWantApp.API.Domain.Products;
 
 /// <summary>

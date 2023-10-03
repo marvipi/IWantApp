@@ -1,4 +1,4 @@
-﻿using IWantApp.API.Domain.Services;
+using IWantApp.API.Domain.Extensions;
 
 namespace IWantApp.API.Domain.Endpoints.Products;
 

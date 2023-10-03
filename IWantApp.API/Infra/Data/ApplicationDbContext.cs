@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Flunt.Notifications;
 
 namespace IWantApp.API.Infra.Data;
 
@@ -6,6 +6,7 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser>
 {
     public DbSet<Product> Products { get; init; }
     public DbSet<Category> Categories { get; init; }
+    public DbSet<Order> Orders { get; init; }
 
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
@@ -22,6 +23,15 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser>
         modelBuilder.Entity<Product>()
             .Property(product => product.Description)
             .HasMaxLength(250);
+
+        modelBuilder.Entity<Order>()
+            .HasMany(o => o.Products)
+            .WithMany(p => p.Orders)
+            .UsingEntity(x => x.ToTable("Orders&Products"));
+
+        modelBuilder.Entity<Order>()
+            .Property(o => o.Total)
+            .HasColumnType("decimal(11,2)");
     }
 
     protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)

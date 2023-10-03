@@ -1,12 +1,14 @@
-namespace IWantApp.API.Domain.Services;
+using Flunt.Notifications;
+
+namespace IWantApp.API.Domain.Extensions;
 
 public static class ProblemDetailsExtension
 {
     /// <summary>
-    /// Converte uma coleÁ„o de notificaÁıes do Flunt para um dicion·rio de string arrays.
+    /// Converte uma cole√ß√£o de notifica√ß√µes do Flunt para um dicion√°rio de string arrays.
     /// </summary>
-    /// <param name="notifications"> A coleÁ„o de notificaÁıes que ser· convertida. </param>
-    /// <returns> Um dicion·rio cujos valores correspondem ‡s mensagens das notificaÁıes. </returns>
+    /// <param name="notifications"> A cole√ß√£o de notifica√ß√µes que ser√° convertida. </param>
+    /// <returns> Um dicion√°rio cujos valores correspondem √†s mensagens das notifica√ß√µes. </returns>
     public static Dictionary<string, string[]> ConvertToProblemDetails(this IReadOnlyCollection<Notification> notifications)
     {
         return notifications
@@ -16,10 +18,10 @@ public static class ProblemDetailsExtension
     }
 
     /// <summary>
-    /// Converte um enumer·vel de erros de identidade para um dicion·rio de string arrays.
+    /// Converte um enumer√°vel de erros de identidade para um dicion√°rio de string arrays.
     /// </summary>
-    /// <param name="errors"> Os erros de identidade que ser„o convertidos. </param>
-    /// <returns> Um dicion·rio que contÈm uma ˙nica chave e cujo valor È uma array de mensagens de erro. </returns>
+    /// <param name="errors"> Os erros de identidade que ser√£o convertidos. </param>
+    /// <returns> Um dicion√°rio que cont√©m uma √∫nica chave e cujo valor √© uma array de mensagens de erro. </returns>
     public static Dictionary<string, string[]> ConvertToProblemDetails(this IEnumerable<IdentityError> errors)
     {
         var errorMsgs = new Dictionary<string, string[]>()

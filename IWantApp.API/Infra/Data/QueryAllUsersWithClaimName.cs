@@ -1,9 +1,11 @@
 using Dapper;
-using IWantApp.API.Domain.Endpoints.Employees;
 using Microsoft.Data.SqlClient;
 
 namespace IWantApp.API.Infra.Data;
 
+/// <summary>
+/// Representa uma consulta que retorna o e-mail e o nome dos usuários.
+/// </summary>
 public class QueryAllUsersWithClaimName
 {
     private readonly IConfiguration configuration;
@@ -23,6 +25,12 @@ public class QueryAllUsersWithClaimName
         this.configuration = configuration;
     }
 
+    /// <summary>
+    /// Produz o e-mail e nome de uma quantidade paginada de usuários.
+    /// </summary>
+    /// <param name="page"> O número da página. </param>
+    /// <param name="rows"> A quantidade de elementos que a consulta deve retornar. </param>
+    /// <returns> Uma coleção enumerável que contém um número de <see cref="EmployeeResponse"/> igual ou menor a <paramref name="rows"/> </returns>
     public async Task<IEnumerable<EmployeeResponse>> ExecuteAsync(int page, int rows)
     {
         var db = new SqlConnection(configuration["ConnectionStrings:IWantDb"]);

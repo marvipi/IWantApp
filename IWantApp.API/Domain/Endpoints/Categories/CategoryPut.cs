@@ -1,24 +1,24 @@
-using IWantApp.API.Domain.Services;
+using IWantApp.API.Domain.Extensions;
 
 namespace IWantApp.API.Domain.Endpoints.Categories;
 
 /// <summary>
-/// Representa uma requisiÁ„o HTTP que atualiza uma categoria j· registrada.
+/// Representa uma requisi√ß√£o HTTP que atualiza uma categoria j√° registrada.
 /// </summary>
 public static class CategoryPut
 {
     /// <summary>
-    /// O endpoint onde a categoria que ser· atualizada est· localizada.
+    /// O endpoint onde a categoria que ser√° atualizada est√° localizada.
     /// </summary>
     public static string Template => "/categories/{id:guid}";
 
     /// <summary>
-    /// Os mÈtodos HTTP usados para invocar esta requisiÁ„o.
+    /// Os m√©todos HTTP usados para invocar esta requisi√ß√£o.
     /// </summary>
     public static string[] Methods => new string[] { HttpMethod.Put.ToString() };
 
     /// <summary>
-    /// Uma referÍncia a um mÈtodo que atualiza categorias.
+    /// Uma refer√™ncia a um m√©todo que atualiza categorias.
     /// </summary>
     public static Delegate Handler => Action;
 

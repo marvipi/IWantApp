@@ -10,14 +10,17 @@
         <Using Include="Microsoft.AspNetCore.Mvc" />
         <Using Include="Microsoft.AspNetCore.Authorization" />
         <Using Include="Microsoft.AspNetCore.Identity" />
+        <Using Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" />
         <Using Include="Microsoft.EntityFrameworkCore" />
         <Using Include="System.Security.Claims" />
-        <Using Include="Flunt.Notifications" />
-        <Using Include="Flunt.Validations" />
         
         <Using Include="IWantApp.API.Domain.Products" />
-        <Using Include="IWantApp.API.Infra.Data" />
         <Using Include="IWantApp.API.Domain.Endpoints.Categories" />
+        <Using Include="IWantApp.API.Domain.Endpoints.Clients" />
+        <Using Include="IWantApp.API.Domain.Endpoints.Employees" />
+        <Using Include="IWantApp.API.Domain.Endpoints.Orders" />
+        <Using Include="IWantApp.API.Domain.Endpoints.Products" />
+        <Using Include="IWantApp.API.Infra.Data" />
     </ItemGroup>
 
     <ItemGroup>
@@ -31,6 +34,9 @@
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
         <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.11" />
+        <PackageReference Include="Serilog" Version="3.0.1" />
+        <PackageReference Include="Serilog.AspNetCore" Version="7.0.0" />
+        <PackageReference Include="Serilog.Sinks.MSSqlServer" Version="6.3.0" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     </ItemGroup>
 

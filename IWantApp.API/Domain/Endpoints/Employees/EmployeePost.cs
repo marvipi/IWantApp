@@ -1,3 +1,4 @@
+using IWantApp.API.Domain.Extensions;
 using IWantApp.API.Domain.Services;
 
 namespace IWantApp.API.Domain.Endpoints.Employees;
